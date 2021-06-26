@@ -81,7 +81,7 @@ export function AdminRoom() {
               : {}
             }
           />
-          {category}
+          {/* {category} */}
           <div>
             <RoomCode code={roomId} />
             <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
