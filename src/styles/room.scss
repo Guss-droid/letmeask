@@ -1,7 +1,34 @@
 #page-room{
+
+  &.dark{
+    background: #333;
+    color: #FEFEFE;
+    flex: 1;
+  }
+
   header{
     padding: 24px;
     border-bottom: 1px solid #E2E2E2;
+
+    .themeMode{
+      background: transparent;
+      width: 40px;
+      height: 35px;
+      cursor: pointer;
+      
+      .iconMoon{
+        color: #333;
+      }
+  
+      .iconSun{
+        color: #FEFEFE;
+      }
+
+      &:hover{
+        filter: opacity(0.7)
+      }
+  
+    }
 
     .content{
       max-width: 1128px;
@@ -107,6 +134,12 @@
     
     .question-list{
       margin-top: 32px;
+    }
+
+    .button-margin{
+      margin-top: 35px;
+      margin-left: 750px;
+      margin-bottom: 40px;
     }
 
   }

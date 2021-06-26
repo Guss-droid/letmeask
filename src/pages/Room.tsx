@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'
 
 import LogoImg from '../assets/logo.svg';
@@ -12,6 +12,12 @@ import { database } from '../services/firebase';
 
 import '../styles/room.scss';
 import { useRoom } from '../hooks/UseRoom';
+import { useTheme } from '../hooks/UseTheme';
+
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { fas } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// library.add(fas)
 
 type RoomParams = {
   id: string;
@@ -23,8 +29,12 @@ export function Room() {
   const params = useParams<RoomParams>();
   const [newQuestion, setNewQuestion] = useState('');
   const roomId = params.id
-
   const { questions, tittle } = useRoom(roomId);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    localStorage.getItem("theme");
+}, [theme])
 
   async function handleCreateNewQuestion(e: FormEvent) {
     e.preventDefault();
@@ -63,19 +73,44 @@ export function Room() {
   }
 
   return (
-    <div id="page-room">
+    <div id="page-room" className={theme}>
       <header>
         <div className="content">
-          <img src={LogoImg} alt="LetmeAsk" />
+          <img
+            src={LogoImg}
+            alt="LetmeAsk"
+            style={theme === 'dark' ?
+              {
+                background: '#FFF',
+                borderRadius: '8px'
+              }
+              : {}
+            }
+          />
+          <div>
+
+          </div>
           <RoomCode
             code={roomId}
           />
+          {/* <button className="themeMode" onClick={toggleTheme}>
+            {
+              theme === 'light' ?
+                <FontAwesomeIcon className="iconMoon" icon="moon" />
+                :
+                <FontAwesomeIcon className="iconSun" icon="sun" />
+            }
+          </button> */}
         </div>
       </header>
 
       <main>
         <div className="room-tittle">
-          <h1>Sala {tittle}</h1>
+          <h1
+            style={theme === 'dark' ? { color: '#FEFEFE' } : {}}
+          >
+            Sala {tittle}
+          </h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
 
@@ -89,7 +124,11 @@ export function Room() {
             {user ? (
               <div className="user-info">
                 <img src={user.avatar} alt={user.name} />
-                <span>{user.name}</span>
+                <span
+                  style={theme === 'dark' ? { color: '#FEFEFE' } : {}}
+                >
+                  {user.name}
+                </span>
               </div>
             ) : (
               <span>Para enviar uma pergunta, <button> faça seu login</button></span>

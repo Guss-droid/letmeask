@@ -3,6 +3,11 @@
   align-items: stretch;
   height: 100vh;
 
+  &.dark{
+    background: #333;
+    color: #FEFEFE;
+  }
+
   aside{
     flex: 7;
 
@@ -51,9 +56,9 @@
     max-width: 320px;
     align-items: stretch;
 
-    > img{
-      align-self: center;
-    }
+      > img{
+        align-self: center;
+      }   
 
     h2{
       font-size: 24px;
@@ -68,6 +73,10 @@
         padding: 0 16px;
         background: #FFF;
         border: 1px solid #A8A8B3;
+      }
+
+      > input{
+        margin-top: 15px;
       }
 
       button{
