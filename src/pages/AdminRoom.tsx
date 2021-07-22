@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { database } from '../services/firebase';
 
@@ -13,13 +12,7 @@ import DeleteImg from '../assets/delete.svg';
 import CheckImg from '../assets/check.svg';
 import AnswerImg from '../assets/answer.svg';
 
-import '../styles/room.scss';
-import { useTheme } from '../hooks/UseTheme';
-
-// import { library } from '@fortawesome/fontawesome-svg-core'
-// import { fas } from '@fortawesome/free-solid-svg-icons'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// library.add(fas)
+import '../styles/adminRoom.scss';
 
 type RoomParams = {
   id: string;
@@ -31,12 +24,6 @@ export function AdminRoom() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
   const { questions, tittle, category } = useRoom(roomId);
-  const { theme  } = useTheme();
-  
-
-  useEffect(() => {
-    localStorage.getItem("theme");
-  }, [theme])
 
   async function handleEndRoom() {
     if (window.confirm('Tem certeza que você deseja encerrar a sala?')) {
@@ -66,42 +53,24 @@ export function AdminRoom() {
   }
 
   return (
-    <div id="page-room" className={theme}>
+    <div id="page-room">
       <header>
         <div className="content">
-          <img
-            src={LogoImg}
-            alt="LetmeAsk"
-            style={theme === 'dark' ?
-              {
-                background: '#FFF',
-                padding: '1px',
-                borderRadius: '8px'
-              }
-              : {}
-            }
-          />
-          {/* {category} */}
+          <img src={LogoImg} alt="LetmeAsk" />
+          <span>
+            categoria da sala : {category}
+          </span>
+
           <div>
             <RoomCode code={roomId} />
             <Button isOutlined onClick={handleEndRoom}>Encerrar sala</Button>
-            {/* <button className="themeMode" onClick={toggleTheme}>
-              {
-                theme === 'light' ?
-                  <FontAwesomeIcon className="iconMoon" icon="moon" />
-                  :
-                  <FontAwesomeIcon className="iconSun" icon="sun" />
-              }
-            </button> */}
           </div>
         </div>
       </header>
 
       <main>
         <div className="room-tittle">
-          <h1
-            style={theme === 'dark' ? { color: '#FEFEFE' } : {}}
-          >
+          <h1>
             Sala {tittle}
           </h1>
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}

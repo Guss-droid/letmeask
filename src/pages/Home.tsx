@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom'
 import { FormEvent, useState } from 'react';
 import { useAuth } from '../hooks/UseAuth';
@@ -11,18 +10,12 @@ import GoogleIconImg from '../assets/google-icon.svg';
 import { Button } from '../components/button';
 
 import '../styles/auth.scss'
-import { useTheme } from '../hooks/UseTheme';
 
 export function Home() {
 
   const history = useHistory();
   const { singInWithGoogle, user } = useAuth();
   const [roomCode, setRoomCode] = useState('');
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    localStorage.getItem("theme");
-}, [theme])
 
   async function handleCreateRoom() {
     if (!user) {
@@ -54,7 +47,7 @@ export function Home() {
     history.push(`/rooms/${roomCode}`);
   }
   return (
-    <div id="page-auth" className={theme}>
+    <div id="page-auth">
       <aside>
         <img src={IllustrantionImg} alt="Ilustração simbolizando perguntas e respostas" />
         <strong>Crie salas de Q&amp;A ao vivo</strong>
@@ -63,18 +56,7 @@ export function Home() {
       <main>
         <div className="main-content">
           <div >
-            <img
-              style={theme === 'dark' ?
-                {
-                  background: '#FFF',
-                  padding: '3px',
-                  borderRadius: '8px'
-                }
-                : {}
-              }
-              src={LogoImg}
-              alt="Letmeask"
-            />
+            <img src={LogoImg} alt="Letmeask" />
           </div>
           <button onClick={handleCreateRoom} className="create-google">
             <img src={GoogleIconImg} alt="Logo do google" />

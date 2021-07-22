@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { FormEvent, useState } from 'react'
 import { database } from '../services/firebase';
@@ -10,7 +9,6 @@ import LogoImg from '../assets/logo.svg';
 import { Button } from '../components/button';
 
 import '../styles/auth.scss'
-import { useTheme } from '../hooks/UseTheme';
 
 export function CreateRoom() {
 
@@ -18,11 +16,6 @@ export function CreateRoom() {
   const { user } = useAuth();
   const [newRoom, setNewRoom] = useState('');
   const [category, setCategory] = useState('');
-  const { theme } = useTheme();
-
-  useEffect(() => {
-    localStorage.getItem("theme");
-}, [theme])
 
   async function handleCreateRoom(e: FormEvent) {
     e.preventDefault();
@@ -47,7 +40,7 @@ export function CreateRoom() {
   }
 
   return (
-    <div id="page-auth" className={theme}>
+    <div id="page-auth">
       <aside>
         <img src={IllustrantionImg} alt="Ilustração simbolizando perguntas e respostas" />
         <strong>Crie salas de Q&amp;A ao vivo</strong>
@@ -55,18 +48,7 @@ export function CreateRoom() {
       </aside>
       <main>
         <div className="main-content">
-          <img
-            src={LogoImg}
-            alt="Letmeask"
-            style={theme === 'dark' ?
-              {
-                background: '#FFF',
-                padding: '3px',
-                borderRadius: '8px'
-              }
-              : {}
-            }
-          />
+          <img src={LogoImg} alt="Letmeask" />
           <h2>Criar uma sala</h2>
           <form onSubmit={handleCreateRoom}>
             <input
